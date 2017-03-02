@@ -1,0 +1,2 @@
+# SauriAutomata
+Proyecto analizador léxico.
