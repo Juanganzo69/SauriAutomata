@@ -1,0 +1,87 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+	background-image: url(../images/fondo7.jpg);
+	background-size: cover;
+}
+
+h2{
+    text-align: center;
+    font-size: 45px;
+    color: #ccff99;
+    font-family: 'Oswald', sans-serif;
+	margin-top: 200px;
+	margin-bottom: 50px;
+	text-shadow: 2px 2px #0d1a00;
+}
+
+form{
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 15px;
+}
+
+#datos{
+    margin-bottom:  18px;
+    font-family: 'Oswald', sans-serif;
+    font-style: oblique;
+    border-color: #ff9999;
+    border-style: dashed;
+    font-size: 40px;
+	text-align: center;
+	background-color: transparent;
+	width: 60%;
+	color: white;
+}
+
+#datos:hover{
+    border-color: #990033;
+}
+
+#enviar{
+    font-size: 30px;
+	border-radius: 15px;
+	padding: 5px;
+	font-family: 'Oswald', sans-serif;
+	border-style: hidden;
+	margin-right: 6px;
+}
+
+#limpiar{
+    font-size: 30px;
+	border-radius: 15px;
+	padding: 5px;
+	font-family: 'Oswald', sans-serif;
+	border-style: hidden;
+	margin-left: 6px;
+}
+
+#div1{
+    font-family: 'Indie Flower';
+    font-family: 'Oswald', sans-serif;
+    color: crimson;
+    font-size: 40px;
+    margin: 30px 290px 0px 290px;
+    
+}
+
+#div1:hover{
+    border-color: green;
+}
+
+#div2{
+	font-family: 'Indie Flower';
+    font-family: 'Oswald', sans-serif;
+    color: #009999;
+    font-size: 40px;
+    margin: 30px 290px 0px 290px;
+	
+}
+
+#div2:hover{
+    border-color: green;
+}
