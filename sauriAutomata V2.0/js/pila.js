@@ -85,21 +85,7 @@ for(var i = 1; i <=100; i++){
 console.log("Suma de pares e impares: "+cont3);*/
 
 
-var matriz=[
-	["","","","","TE'","TE'","","",""],
-	["=TE'","","","","","", "Ɛ","","Ɛ"],
-	["","","","","FT'","FT'","","",""],
-	["Ɛ","-FT'","","","","","Ɛ","","Ɛ"],
-	["","","","","FT'","FT'","","",""],
-	["Ɛ","Ɛ","+AF'","","","","Ɛ","","Ɛ"],
-	["","","","","FT'","FT'","","",""],
-	["Ɛ","Ɛ","Ɛ","/MA'","","","Ɛ","","Ɛ"],
-	["","","","","KM'","KM'","","",""],
-	["Ɛ","Ɛ","Ɛ","Ɛ","","","Ɛ","*KM'","Ɛ"],
-	["","","","","id'","(E)","","",""]
-	
-	
-];
+
 
 
 /*arreglofeliz = [];
@@ -133,6 +119,7 @@ console.log(matriz[0][1]+ " matriz[0][1]");
 console.log(matriz);*/
 
 
+/*
 var pila = ["$","E"];
 var e = ["peto"];
 var earreglo = e[0].split("").reverse();
@@ -142,7 +129,49 @@ for(var i = 0; i <= earreglo.length-1;i++){
 }
 pila.pop();
 console.log(pila);
+*/
 
+/*
+  VN/VT| =  |-   |+   |/   |id   |(   |)   |*   |$
+  E    |    |    |    |    |TE'  |TE' |    |    |
+  E'   |=TE'|    |    |    |     |    |Ɛ   |    |Ɛ
+  T    |    |    |    |    |FT'  |FT' |    |    |
+  T'   |Ɛ   |-FT'|    |    |     |    |Ɛ   |    |Ɛ
+  F    |    |    |    |    |AF'  |AF' |    |    |
+  F'   |Ɛ   |Ɛ   |+AF'|    |     |    |Ɛ   |    |Ɛ
+  A    |    |    |    |    |MA'  |MA' |    |    |
+  A'   |Ɛ   |Ɛ   |Ɛ   |/MA'|     |    |Ɛ   |    |Ɛ
+  M    |    |    |    |    |KM'  |KM' |    |    |
+  M'   |Ɛ   |Ɛ   |Ɛ   |Ɛ   |     |    |    |*KM'|Ɛ
+  K    |    |    |    |    |id   |(E) |    |    |
+
+*/
+var tablaSintactica=[
+	["","","","","TE'","TE'","","",""],
+	["=TE'","","","","","", "Ɛ","","Ɛ"],
+	["","","","","FT'","FT'","","",""],
+	["Ɛ","-FT'","","","","","Ɛ","","Ɛ"],
+	["","","","","FT'","FT'","","",""],
+	["Ɛ","Ɛ","+AF'","","","","Ɛ","","Ɛ"],
+	["","","","","FT'","FT'","","",""],
+	["Ɛ","Ɛ","Ɛ","/MA'","","","Ɛ","","Ɛ"],
+	["","","","","KM'","KM'","","",""],
+	["Ɛ","Ɛ","Ɛ","Ɛ","","","Ɛ","*KM'","Ɛ"],
+	["","","","","id'","(E)","","",""]
+];
+	   //0  1  2  3   4     5    6  7   8
+ 		
+//caracteres con prima.
+//=TE'
+		
+var igual = tablaSintactica[1][0].substr(tablaSintactica[1][0].indexOf("="),2);
+//=T
+var arregloigual = igual.split("");
+console.log(arregloigual);
+
+var prima = [tablaSintactica[1][0].substr(tablaSintactica[1][0].indexOf("E"), 2)];
+arregloigual.push(prima[0]);
+console.log(arregloigual);
 
 
 
