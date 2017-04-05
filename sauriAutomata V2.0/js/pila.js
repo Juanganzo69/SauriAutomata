@@ -146,6 +146,8 @@ console.log(pila);
   K    |    |    |    |    |id   |(E) |    |    |
 
 */
+
+
 var tablaSintactica=[
 	["","","","","TE'","TE'","","",""],
 	["=TE'","","","","","", "Ɛ","","Ɛ"],
@@ -156,7 +158,7 @@ var tablaSintactica=[
 	["","","","","FT'","FT'","","",""],
 	["Ɛ","Ɛ","Ɛ","/MA'","","","Ɛ","","Ɛ"],
 	["","","","","KM'","KM'","","",""],
-	["Ɛ","Ɛ","Ɛ","Ɛ","","","Ɛ","*KM'","Ɛ"],
+	["Ɛ","Ɛ","Ɛ","Ɛ","*KM'","","Ɛ","","Ɛ"],
 	["","","","","id'","(E)","","",""]
 ];
 	   //0  1  2  3   4     5    6  7   8
@@ -164,6 +166,7 @@ var tablaSintactica=[
 //caracteres con prima.
 //=TE'
 		
+/*
 var igual = tablaSintactica[1][0].substr(tablaSintactica[1][0].indexOf("="),2);
 //=T
 var arregloigual = igual.split("");
@@ -173,6 +176,23 @@ var prima = [tablaSintactica[1][0].substr(tablaSintactica[1][0].indexOf("E"), 2)
 arregloigual.push(prima[0]);
 console.log(arregloigual);
 
+*/
+
+
+/*
+var num1 = 1;
+var num2 = 2;
+
+var cont = 2;
+
+while(cont <=20){
+	 console.log(cont+" --> "+num1);
+	 num2 = num1 + num2;
+	 num1 = num2 - num1;
+	 cont++;
+		
+}	
+*/
 
 
 
