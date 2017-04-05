@@ -55,7 +55,7 @@ var tablaSintactica=[
 	["Ɛ",   "Ɛ",   "Ɛ",   "/MA'","",    "",    "",    "Ɛ",  "Ɛ"],
 	["",    "",    "",    "",    "",    "KM'", "KM'", "",   "" ],
 	["Ɛ",   "Ɛ",   "Ɛ",   "Ɛ",   "*KM'","",    "",    "",   "Ɛ"],
-	["",    "",    "",    "",    "",    "id'", "(E)", "",   "" ]
+	["",    "",    "",    "",    "",    "id", "(E)", "",   "" ]
 ];
 
 
@@ -73,8 +73,8 @@ document.getElementById('enviar').addEventListener("click",function(){
 			//var sinEspacios = quitarEspacios(analisisNumeros);
 			console.log(analisisNumeros);
 			//console.log(sinEspacios);
-			//var sintactico = analizadorSintactico(analisisNumeros,tablaSintactica);
-			//console.log(sintactico);
+			var sintactico = analizadorSintactico(analisisNumeros,tablaSintactica);
+			console.log(sintactico);
 			//analizadorSintactico(analisisNumeros,tablaSintactica);
 			var otrosDatos = otros(datos,componentesLexicos);
 			console.log("\n"+resultados+"\n");
@@ -658,11 +658,13 @@ function otros(texto, componentesLexicos){
 
 
 function analizadorSintactico(misDatitos, miTablita){
-	var pila = ["$","E"];
+	var pila = [";","E"];
 	var resultado = [];
 	if(misDatitos[0] == 8 || misDatitos[0] == 5){
-	do{	
+	while(pila.length !== 0){
+		//a+(a-b);
 		if(misDatitos[0] == 8){
+			if(pila[pila.length-1] == "E"){
 			pila.pop();
 			//TE'
 			var T	  = [miTablita[0][5].substr(miTablita[0][5].indexOf("T"), 1)];
@@ -676,165 +678,483 @@ function analizadorSintactico(misDatitos, miTablita){
 				var Tprima = [miTablita[2][5].substr(miTablita[2][5].indexOf("T"), 2)];
 				pila.push(Tprima[0]);
 				pila.push(F[0]);	
-			}else if(pila[pila.length-1] == "F"){
+				if(pila[pila.length-1] == "F"){
+					pila.pop();
+					//AF'
+					var A	  = [miTablita[4][5].substr(miTablita[4][5].indexOf("A"), 1)];
+					var Fprima = [miTablita[4][5].substr(miTablita[4][5].indexOf("F"), 2)];
+					pila.push(Fprima[0]);
+					pila.push(A[0]);
+					if(pila[pila.length-1] == "A"){
+						pila.pop();
+						//MA'
+						var M	  = [miTablita[6][5].substr(miTablita[6][5].indexOf("M"), 1)];
+						var Aprima = [miTablita[6][5].substr(miTablita[6][5].indexOf("A"), 2)];
+						pila.push(Aprima[0]);
+						pila.push(M[0]);
+						if(pila[pila.length-1] == "M"){
+							pila.pop();
+							//KM'
+							var K	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+							var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
+							pila.push(Mprima[0]);
+							pila.push(K[0]);
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+								//id 
+								pila.push(miTablita[10][5]);
+								if(pila[pila.length-1] == "id"){
+									pila.pop();
+									misDatitos.shift();
+								}
+							}
+						}
+					}
+				}
+			}		
+		}
+			if(pila[pila.length-1] == "T"){
+			pila.pop();
+			//FT'
+			var F	  = [miTablita[2][5].substr(miTablita[2][5].indexOf("F"), 1)];
+			var Tprima = [miTablita[2][5].substr(miTablita[2][5].indexOf("T"), 2)];
+			pila.push(Tprima[0]);
+			pila.push(F[0]);
+			if(pila[pila.length-1] == "F"){
 				pila.pop();
 				//AF'
 				var A	  = [miTablita[4][5].substr(miTablita[4][5].indexOf("A"), 1)];
 				var Fprima = [miTablita[4][5].substr(miTablita[4][5].indexOf("F"), 2)];
 				pila.push(Fprima[0]);
 				pila.push(A[0]);	
-			}else if(pila[pila.length-1] == "A"){
+				if(pila[pila.length-1] == "A"){
+					pila.pop();
+					//MA'
+					var M	  = [miTablita[6][5].substr(miTablita[6][5].indexOf("M"), 1)];
+					var Aprima = [miTablita[6][5].substr(miTablita[6][5].indexOf("A"), 2)];
+					pila.push(Aprima[0]);
+					pila.push(M[0]);
+					if(pila[pila.length-1] == "M"){
+						pila.pop();
+						//KM'
+						var K	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+						var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
+						pila.push(Mprima[0]);
+						pila.push(K[0]);
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+								//id 
+								pila.push(miTablita[10][5]);
+								if(pila[pila.length-1] == "id"){
+									pila.pop();
+									misDatitos.shift();
+								}
+							}
+						}
+					}
+				}
+			}		
+			if(pila[pila.length-1] == "F"){
+			pila.pop();
+			//AF'
+			var A	  = [miTablita[4][5].substr(miTablita[4][5].indexOf("A"), 1)];
+			var Fprima = [miTablita[4][5].substr(miTablita[4][5].indexOf("F"), 2)];
+			pila.push(Fprima[0]);
+			pila.push(A[0]);
+			if(pila[pila.length-1] == "A"){
 				pila.pop();
 				//MA'
 				var M	  = [miTablita[6][5].substr(miTablita[6][5].indexOf("M"), 1)];
 				var Aprima = [miTablita[6][5].substr(miTablita[6][5].indexOf("A"), 2)];
 				pila.push(Aprima[0]);
-				pila.push(M[0]);
-			}else if(pila[pila.length-1] == "M"){
+				pila.push(M[0]);	
+				if(pila[pila.length-1] == "M"){
+					pila.pop();
+					//KM'
+					var K	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+					var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 2)];
+					pila.push(Mprima[0]);
+					pila.push(K[0]);
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+								//id 
+								pila.push(miTablita[10][5]);
+								if(pila[pila.length-1] == "id"){
+									pila.pop();
+									misDatitos.shift();
+								}
+							}
+						}
+					}
+			}
+			if(pila[pila.length-1] == "A"){
+			pila.pop();
+			//MA'
+			var M	  = [miTablita[6][5].substr(miTablita[6][5].indexOf("M"), 1)];
+			var Aprima = [miTablita[6][5].substr(miTablita[6][5].indexOf("A"), 2)];
+			pila.push(Aprima[0]);
+			pila.push(M[0]);
+			if(pila[pila.length-1] == "M"){
 				pila.pop();
 				//KM'
-				var K	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 1)];
-				var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("A"), 2)];
+				var K	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+				var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
 				pila.push(Mprima[0]);
-				pila.push(K[0]);
-			}else if(pila[pila.length-1] == "K"){
-				pila.pop();
-				//id 
-				pila.push(miTablita[10][5]);
-			}else if(pila[pila.length-1] == "id"){
-				pila.pop();
-				misDatitos.shift();
-			}
-	}
-		if(misDatitos[0] == 5){
+				pila.push(K[0]);	
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+								//id 
+								pila.push(miTablita[10][5]);
+								if(pila[pila.length-1] == "id"){
+									pila.pop();
+									misDatitos.shift();
+									//break;
+								}
+							}
+						}
+					}	
+			if(pila[pila.length-1] == "M"){
+			pila.pop();
+			//KM'
+			var K	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+			var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
+			pila.push(Mprima[0]);
+			pila.push(K[0]);	
+					if(pila[pila.length-1] == "K"){
+					pila.pop();
+					//id 
+					pila.push(miTablita[10][5]);
+						if(pila[pila.length-1] == "id"){
+							pila.pop();
+							misDatitos.shift();
+						}
+					}
+				}
+			if(pila[pila.length-1] == "K"){
+					pila.pop();
+					//id 
+					pila.push(miTablita[10][5]);
+						if(pila[pila.length-1] == "id"){
+							pila.pop();
+							misDatitos.shift();
+						}
+					}
+		}			
+		else if(misDatitos[0] == 5){
+			if(pila[pila.length-1] == "E"){
 			pila.pop();
 			//TE'
-			var T2	  = [miTablita[0][5].substr(miTablita[0][5].indexOf("T"), 1)];
-			var Eprima2 = [miTablita[0][5].substr(miTablita[0][5].indexOf("E"), 2)];
+			var T2	  = [miTablita[0][6].substr(miTablita[0][6].indexOf("T"), 1)];
+			var Eprima2 = [miTablita[0][6].substr(miTablita[0][6].indexOf("E"), 2)];
 			pila.push(Eprima2[0]);
 			pila.push(T2[0]);
 			if(pila[pila.length-1] == "T"){
 				pila.pop();
 				//FT'
-				var F2	  = [miTablita[2][5].substr(miTablita[2][5].indexOf("F"), 1)];
-				var Tprima2 = [miTablita[2][5].substr(miTablita[2][5].indexOf("T"), 2)];
+				var F2	  = [miTablita[2][6].substr(miTablita[2][6].indexOf("F"), 1)];
+				var Tprima2 = [miTablita[2][6].substr(miTablita[2][6].indexOf("T"), 2)];
 				pila.push(Tprima2[0]);
-				pila.push(F2[0]);	
-			}else if(pila[pila.length-1] == "F"){
+				pila.push(F2[0]);
+				if(pila[pila.length-1] == "F"){
+					pila.pop();
+					//AF'
+					var A2	  = [miTablita[4][6].substr(miTablita[4][6].indexOf("A"), 1)];
+					var Fprima2 = [miTablita[4][6].substr(miTablita[4][6].indexOf("F"), 2)];
+					pila.push(Fprima2[0]);
+					pila.push(A2[0]);
+					if(pila[pila.length-1] == "A"){
+						pila.pop();
+						//MA'
+						var M2	  = [miTablita[6][6].substr(miTablita[6][6].indexOf("M"), 1)];
+						var Aprima2 = [miTablita[6][6].substr(miTablita[6][6].indexOf("A"), 2)];
+						pila.push(Aprima2[0]);
+						pila.push(M2[0]);
+						if(pila[pila.length-1] == "M"){
+							pila.pop();
+							//KM'
+							var K2	  = [miTablita[8][6].substr(miTablita[8][6].indexOf("K"), 1)];
+							var Mprima2 = [miTablita[8][6].substr(miTablita[8][6].indexOf("M"), 2)];
+							pila.push(Mprima2[0]);
+							pila.push(K2[0]);
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+								//(E)
+								var charParentesis = miTablita[10][6].split(""); 
+								//["(","E",")"];
+								pila.push(charParentesis[2]);
+								pila.push(charParentesis[1]);
+								pila.push(charParentesis[0]);
+								if(pila[pila.length-1] == "("){
+									pila.pop();
+									misDatitos.shift();
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+			if(pila[pila.length-1] == "T"){
+			pila.pop();
+			//FT'
+			var F2	  = [miTablita[2][5].substr(miTablita[2][5].indexOf("F"), 1)];
+			var Tprima2 = [miTablita[2][5].substr(miTablita[2][5].indexOf("T"), 2)];
+			pila.push(Tprima2[0]);
+			pila.push(F2[0]);
+			if(pila[pila.length-1] == "F"){
 				pila.pop();
 				//AF'
 				var A2	  = [miTablita[4][5].substr(miTablita[4][5].indexOf("A"), 1)];
 				var Fprima2 = [miTablita[4][5].substr(miTablita[4][5].indexOf("F"), 2)];
 				pila.push(Fprima2[0]);
 				pila.push(A2[0]);	
-			}else if(pila[pila.length-1] == "A"){
+				if(pila[pila.length-1] == "A"){
+					pila.pop();
+					//MA'
+					var M2	  = [miTablita[6][5].substr(miTablita[6][5].indexOf("M"), 1)];
+					var Aprima2 = [miTablita[6][5].substr(miTablita[6][5].indexOf("A"), 2)];
+					pila.push(Aprima2[0]);
+					pila.push(M2[0]);
+					if(pila[pila.length-1] == "M"){
+						pila.pop();
+						//KM'
+						var K2	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+						var Mprima2 = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
+						pila.push(Mprima2[0]);
+						pila.push(K2[0]);
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+								//(E)
+								var charParentesis = miTablita[10][6].split(""); 
+								pila.push(charParentesis[2]);
+								pila.push(charParentesis[1]);
+								pila.push(charParentesis[0]);
+								if(pila[pila.length-1] == "("){
+									pila.pop();
+									misDatitos.shift();
+								}
+							}
+						}
+					}
+				}
+			}		
+			if(pila[pila.length-1] == "F"){
+			pila.pop();
+			//AF'
+			var A2	  = [miTablita[4][5].substr(miTablita[4][5].indexOf("A"), 1)];
+			var Fprima2 = [miTablita[4][5].substr(miTablita[4][5].indexOf("F"), 2)];
+			pila.push(Fprima2[0]);
+			pila.push(A2[0]);
+			if(pila[pila.length-1] == "A"){
 				pila.pop();
 				//MA'
 				var M2	  = [miTablita[6][5].substr(miTablita[6][5].indexOf("M"), 1)];
 				var Aprima2 = [miTablita[6][5].substr(miTablita[6][5].indexOf("A"), 2)];
 				pila.push(Aprima2[0]);
-				pila.push(M2[0]);
-			}else if(pila[pila.length-1] == "M"){
+				pila.push(M2[0]);	
+				if(pila[pila.length-1] == "M"){
+					pila.pop();
+					//KM'
+					var K2	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+					var Mprima2 = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 2)];
+					pila.push(Mprima2[0]);
+					pila.push(K2[0]);
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+									//(E)
+								var charParentesis = miTablita[10][6].split(""); 
+								//["(","E",")"];
+								pila.push(charParentesis[2]);
+								pila.push(charParentesis[1]);
+								pila.push(charParentesis[0]);
+								if(pila[pila.length-1] == "("){
+									pila.pop();
+									misDatitos.shift();
+								}
+							}
+						}
+					}
+			}
+			if(pila[pila.length-1] == "A"){
+			pila.pop();
+			//MA'
+			var M2	  = [miTablita[6][5].substr(miTablita[6][5].indexOf("M"), 1)];
+			var Aprima2 = [miTablita[6][5].substr(miTablita[6][5].indexOf("A"), 2)];
+			pila.push(Aprima2[0]);
+			pila.push(M2[0]);
+			if(pila[pila.length-1] == "M"){
 				pila.pop();
 				//KM'
-				var K2	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 1)];
-				var Mprima2 = [miTablita[8][5].substr(miTablita[8][5].indexOf("A"), 2)];
+				var K2	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+				var Mprima2 = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
 				pila.push(Mprima2[0]);
-				pila.push(K2[0]);
-			}else if(pila[pila.length-1] == "K"){
-				pila.pop();
-				//(E)
-				var charParentesis = miTablita[10][6].split(""); 
-				//["(","E",")"];
-				pila.push(charParentesis[0]);
-				pila.push(charParentesis[1]);
-				pila.push(charParentesis[2]);
-			}else if(pila[pila.length-1] == "("){
-				pila.pop();
-				misDatitos.shift();
-			}
-		}
-		if(misDatitos[0] == 1){
-			if(pila[pila.length-1] == "T'"){
-				pila.pop();
-				var resta	  = [miTablita[3][1].substr(miTablita[3][1].indexOf("-"), 2)];
-				var arregloresta = multi.split("");
-				var Tprimita = [miTablita[3][1].substr(miTablita[3][1].indexOf("T"), 2)];
-				pila.push(Tprimita[0]);
-				pila.push(arreglomulti[1]);
-				pila.push(arreglomulti[0]);
-				misDatitos.shift();
-			}else{
-				pila.pop();
-			}	
-		}
-		if(misDatitos[0] == 2){
-			if(pila[pila.length-1] == "F'"){
-				//+AF'
-				pila.pop();
-				var suma	  = [miTablita[5][2].substr(miTablita[5][2].indexOf("+"), 2)];
-				var arreglosuma = suma.split("");
-				var Fprimita = [miTablita[5][2].substr(miTablita[5][2].indexOf("F"), 2)];
-				pila.push(Fprimita[0]);
-				pila.push(arreglosuma[1]);
-				pila.push(arreglosuma[0]);
-				misDatitos.shift();
-			}else{
-				pila.pop();
-			}	
-		}
-		if(misDatitos[0] == 3){
-			if(pila[pila.length-1] == "A'"){
-				// /MA'
-				pila.pop();
-				var division	  = [miTablita[7][3].substr(miTablita[7][3].indexOf("/"), 2)];
-				var arreglodivision = division.split("");
-				var Aprimita = [miTablita[7][3].substr(miTablita[7][3].indexOf("A"), 2)];
-				pila.push(Aprimita[0]);
-				pila.push(arreglodivision[1]);
-				pila.push(arreglodivision[0]);
-				misDatitos.shift();
-			}else{
-				pila.pop();
-			}	
-		}
-		if(misDatitos[0] == 4){
-			if(pila[pila.length-1] == "M'"){
-				// *KM'
-				pila.pop();
-				var milti	     = [miTablita[9][4].substr(miTablita[9][4].indexOf("*"), 2)];
-				var arreglomulti = milti.split("");
-				var Mprimita = [miTablita[9][4].substr(miTablita[9][4].indexOf("M"), 2)];
-				pila.push(Mprimita[0]);
-				pila.push(arreglomulti[1]);
-				pila.push(arreglomulti[0]);
-				misDatitos.shift();
-			}else{
-				pila.pop();
-			}	
-		}
-		if(misDatitos[0] == 9){
+				pila.push(K2[0]);	
+							if(pila[pila.length-1] == "K"){
+								pila.pop();
+								//(E)
+								var charParentesis = miTablita[10][6].split(""); 
+								//["(","E",")"];
+								pila.push(charParentesis[2]);
+								pila.push(charParentesis[1]);
+								pila.push(charParentesis[0]);
+								if(pila[pila.length-1] == "id"){
+									pila.pop();
+									misDatitos.shift();
+									//break;
+								}
+							}
+						}
+					}	
+			if(pila[pila.length-1] == "M"){
+			pila.pop();
+			//KM'
+			var K2	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
+			var Mprima2 = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
+			pila.push(Mprima2[0]);
+			pila.push(K2[0]);	
+					if(pila[pila.length-1] == "K"){
+					pila.pop();
+					//(E)
+					var charParentesis = miTablita[10][6].split(""); 
+					//["(","E",")"];
+					pila.push(charParentesis[2]);
+					pila.push(charParentesis[1]);
+					pila.push(charParentesis[0]);
+						if(pila[pila.length-1] == "id"){
+							pila.pop();
+							misDatitos.shift();
+						}
+					}
+				}
+			if(pila[pila.length-1] == "K"){
+					pila.pop();
+					//(E)
+					var charParentesis = miTablita[10][6].split(""); 
+					//["(","E",")"];
+					pila.push(charParentesis[2]);
+					pila.push(charParentesis[1]);
+					pila.push(charParentesis[0]);
+						if(pila[pila.length-1] == "id"){
+							pila.pop();
+							misDatitos.shift();
+						}
+					}
+	}
+		else if(misDatitos[0] == 1){
+					if(pila[pila.length-1] == "T'"){
+						pila.pop();
+						//-FT'
+						var resta	  = miTablita[3][1].substr(miTablita[3][1].indexOf("-"), 2);
+						var arregloresta = resta.split("");
+						var Tprimita = miTablita[3][1].substr(miTablita[3][1].indexOf("T"), 2);
+						pila.push(Tprimita);
+						pila.push(arregloresta[1]);
+						pila.push(arregloresta[0]);
+						if(pila[pila.length-1] == "-"){
+							pila.pop();
+							misDatitos.shift();	
+						}				
+					}else{
+						pila.pop();
+					}	
+				}
+		else if(misDatitos[0] == 2){
+					if(pila[pila.length-1] == "F'"){
+						//+AF'
+						pila.pop();
+						var suma	  = miTablita[5][2].substr(miTablita[5][2].indexOf("+"), 2);
+						var arreglosuma = suma.split("");
+						var Fprimita = miTablita[5][2].substr(miTablita[5][2].indexOf("F"), 2);
+						pila.push(Fprimita);
+						pila.push(arreglosuma[1]);
+						pila.push(arreglosuma[0]);
+						if(pila[pila.length-1] == "+"){
+							pila.pop();
+							misDatitos.shift();
+							//break;
+						}
+					}else{
+						pila.pop();	
+					}	
+				}
+		else if(misDatitos[0] == 3){
+					if(pila[pila.length-1] == "A'"){
+						// /MA'
+						pila.pop();
+						var division	  = miTablita[7][3].substr(miTablita[7][3].indexOf("/"), 2);
+						var arreglodivision = division.split("");
+						var Aprimita = miTablita[7][3].substr(miTablita[7][3].indexOf("A"), 2);
+						pila.push(Aprimita);
+						pila.push(arreglodivision[1]);
+						pila.push(arreglodivision[0]);
+						if(pila[pila.length-1] == "/"){
+							pila.pop();
+							misDatitos.shift();	
+						}
+					}else{
+						pila.pop();
+					}	
+				}
+		else if(misDatitos[0] == 4){
+					if(pila[pila.length-1] == "M'"){
+						// *KM'
+						pila.pop();
+						var milti	     = miTablita[9][4].substr(miTablita[9][4].indexOf("*"), 2);
+						var arreglomulti = milti.split("");
+						var Mprimita = miTablita[9][4].substr(miTablita[9][4].indexOf("M"), 2);
+						pila.push(Mprimita);
+						pila.push(arreglomulti[1]);
+						pila.push(arreglomulti[0]);
+						if(pila[pila.length-1] == "*"){
+							pila.pop();
+							misDatitos.shift();
+							//break;
+						}
+					}else{
+						pila.pop();
+					}	
+				}
+		else if(misDatitos[0] == 9){
 			if(pila[pila.length-1] == "E'"){
 				// =TE'
 				pila.pop();
-				var igual	     = [miTablita[1][0].substr(miTablita[1][0].indexOf("="), 2)];
-				var arregloigual = milti.split("");
-				var Eprimita = [miTablita[9][4].substr(miTablita[1][0].indexOf("E"), 2)];
-				pila.push(Eprimita[0]);
+				var igual	     = miTablita[1][0].substr(miTablita[1][0].indexOf("="), 2);
+				var arregloigual = igual.split("");
+				var Eprimita = miTablita[9][4].substr(miTablita[1][0].indexOf("E"), 2);
+				pila.push(Eprimita);
 				pila.push(arregloigual[1]);
 				pila.push(arregloigual[0]);
-				misDatitos.shift();
+				if(pila[pila.length-1] == "="){
+					pila.pop();
+					misDatitos.shift();	
+				}
 			}else{
 				pila.pop();
 			}	
 		}
-		if(misDatitos[0] == 7){
-			if(pila[pila.length-1] == "$"){
-				pila.pop();
-				misDatitos.shift();
+		else if(misDatitos[0] == 7){
+			if(pila[pila.length-1] == ";"){
+					pila.pop();
+					misDatitos.shift();
+					//
+					//break;
+				}else if(pila[pila.length-1] == "E'"){
+				//Fin de cadena :D $ = ;
+					pila.pop();
+				//break;
+				}else if(pila[pila.length-1] == "T'"){
+					pila.pop();
+				}else if(pila[pila.length-1] == "F'"){
+					pila.pop();
+				}else if(pila[pila.length-1] == "A'"){
+					pila.pop();
+				}else if(pila[pila.length-1] == "M'"){
+					pila.pop();
+				}
+					
+					
 			}
-		}
-		if(misDatitos[0] == 6){
+		else if(misDatitos[0] == 6){
 			if(pila[pila.length-1] == ")"){
 				pila.pop();
 				misDatitos.shift();
@@ -851,17 +1171,19 @@ function analizadorSintactico(misDatitos, miTablita){
 				pila.pop();
 			}
 		}
-		if(misDatitos[0] == 100){
+		else if(misDatitos[0] == 100){
 			misDatitos.shift();
 		}
-	}while(pila.length !== 0);
-			if(pila.length == ""){ 
-				resultado.push("La frase introducida es válida :D");
-			}else if(pila.length > 2){
-				resultado.push("La frase es inválida :D");
+		
+}
+			if(pila.length == 0){ 
+				resultado.push("Es valido" + pila);
+			}else if(pila.length > 2){		
+				resultado.push("Es inválido" + pila);
+				
 			}
 	}else{
-		resultado.push("La frase introducida es inválida porque no empieza con id o paréntesis :(");
+		resultado.push("La frase introducida es inválida porque no empieza con id o paréntesis :( ");
 	}
 return resultado;
 }

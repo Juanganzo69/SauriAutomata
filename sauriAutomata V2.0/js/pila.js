@@ -148,7 +148,7 @@ console.log(pila);
 */
 
 
-var tablaSintactica=[
+/*var tablaSintactica=[
 	["","","","","TE'","TE'","","",""],
 	["=TE'","","","","","", "Ɛ","","Ɛ"],
 	["","","","","FT'","FT'","","",""],
@@ -160,23 +160,24 @@ var tablaSintactica=[
 	["","","","","KM'","KM'","","",""],
 	["Ɛ","Ɛ","Ɛ","Ɛ","*KM'","","Ɛ","","Ɛ"],
 	["","","","","id'","(E)","","",""]
-];
+];*/
 	   //0  1  2  3   4     5    6  7   8
  		
 //caracteres con prima.
 //=TE'
 		
-/*
-var igual = tablaSintactica[1][0].substr(tablaSintactica[1][0].indexOf("="),2);
+
+/*var igual = tablaSintactica[1][0].substr(tablaSintactica[1][0].indexOf("="),2);
 //=T
 var arregloigual = igual.split("");
+console.log("Arreglo con substr: "+igual);
 console.log(arregloigual);
 
 var prima = [tablaSintactica[1][0].substr(tablaSintactica[1][0].indexOf("E"), 2)];
 arregloigual.push(prima[0]);
-console.log(arregloigual);
+console.log(arregloigual);*/
 
-*/
+
 
 
 /*
