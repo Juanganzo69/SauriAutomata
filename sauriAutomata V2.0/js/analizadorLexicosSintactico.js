@@ -1,6 +1,7 @@
 //Variables grobales : div1 y div2 son los objetos de los atributos <div></div> y componentesLexicos es la expresion regular que se evalúa.
 var div1 = document.getElementById("div1");
 var div2 = document.getElementById("div2");
+var div3 = document.getElementById("div3");
 var componentesLexicos =
  /([-]|[\+]|[\/]|[\*]|[a-z]|[A-Z]|[\[]|[\]]|[\(]|[\)]|[\;]|[ ]|[=])/g;
 
@@ -65,8 +66,15 @@ document.getElementById('enviar').addEventListener("click",function(){
 			var resultados = mostrarResultado(datos,componentesLexicos);
 			var analisisNumeros = analizador(datos,componentesLexicos);
 			console.log(analisisNumeros);
+			//función que recibe de parámetros del arreglo de los componentes léxicos válidos y la tabla sintáctica. Devuelve el resultado del análisis.
 			var sintactico = analizadorSintactico(analisisNumeros,tablaSintactica);
 			console.log("\n"+sintactico+"\n");
+			div3.style.border = "3px";
+			div3.style.borderStyle = "dashed";
+			div3.style.padding = "10px";
+			div3.textContent = sintactico;
+			div3.style.marginBottom = "30px";
+			div3.style.color = "white";
 			var otrosDatos = otros(datos,componentesLexicos);
 			console.log("Estos son los componentes lexicos válidos: \n"+resultados+"\n");
 			div1.style.border = "3px";
@@ -1198,6 +1206,9 @@ function limpiar(){
 	div2.textContent = "";
 	div2.style.border = "";	
 	div2.style.borderStyle = "";
+	div3.textContent = "";
+	div3.style.border = "";	
+	div3.style.borderStyle = "";
 };
            
     

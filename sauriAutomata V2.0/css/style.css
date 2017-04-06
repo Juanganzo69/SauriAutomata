@@ -85,3 +85,12 @@ form{
 #div2:hover{
     border-color: green;
 }
+
+#div3{
+	font-family: 'Indie Flower';
+    font-family: 'Oswald', sans-serif;
+    color: #009999;
+    font-size: 40px;
+    margin: 30px 290px 0px 290px;
+	
+}
