@@ -75,6 +75,7 @@ document.getElementById('enviar').addEventListener("click",function(){
 			div3.textContent = sintactico;
 			div3.style.marginBottom = "30px";
 			div3.style.color = "white";
+			
 			var otrosDatos = otros(datos,componentesLexicos);
 			console.log("Estos son los componentes lexicos válidos: \n"+resultados+"\n");
 			div1.style.border = "3px";
@@ -1139,7 +1140,15 @@ function analizadorSintactico(misDatitos, miTablita){
 					misDatitos.shift();	
 				}
 			}else{
-				pila.pop();
+				if(pila[pila.length-1] == "A'"){
+						pila.pop();		
+				}else if(pila[pila.length-1] == "M'"){
+						pila.pop();
+				}else if(pila[pila.length-1] == "F'"){
+						pila.pop();
+				}else if(pila[pila.length-1] == "T'"){
+						pila.pop();
+				}
 			}	
 		}
 		else if(misDatitos[0] == 7){
@@ -1185,7 +1194,7 @@ function analizadorSintactico(misDatitos, miTablita){
 	}
 	if(pila.length == 0 && misDatitos.length ==0){ 
 			resultado.push("La frase es válida :D");
-	}/*else if(misDatitos.length > 0)*/else if(cont > 100){		
+	}else if(cont > 100){		
 			resultado.push("Es inválida la frase. Prueba con otra :D");
 			}
 		}else{
