@@ -632,9 +632,12 @@ function otros(texto, componentesLexicos){
 
 function analizadorSintactico(misDatitos, miTablita){
 	//B*a*(a+a)-Z*X+(b+c+v)=y/(c/v);
-	//(A*C)+(A/D  )-  (a+x) /(w-e)+C/a = D;
+	//(A*C)+(A/  D)+C  /c+(a-  q)*r  +t=D;
+	//A/A+a-v+(a+c)-w+a=w;
+	//(k+l)  -( l/ t)  +(e*y   )/  (d-e)*t;
 	var pila = ["$","E"];
 	var resultado = [];
+	var cont = 0;
 	if((misDatitos[0] == 8 || misDatitos[0] == 5) && misDatitos[misDatitos.length-1] == 7){
 	while(pila.length !== 0){
 		if(misDatitos[0] == 8){
@@ -930,7 +933,7 @@ function analizadorSintactico(misDatitos, miTablita){
 					pila.pop();
 					//KM'
 					var K2	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
-					var Mprima2 = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 2)];
+					var Mprima2 = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
 					pila.push(Mprima2[0]);
 					pila.push(K2[0]);
 							if(pila[pila.length-1] == "K"){
@@ -1029,7 +1032,13 @@ function analizadorSintactico(misDatitos, miTablita){
 							misDatitos.shift();	
 						}				
 					}else{
-						pila.pop();
+						if(pila[pila.length-1] == "A'"){
+							pila.pop();		
+						}else if(pila[pila.length-1] == "M'"){
+							pila.pop();
+						}else if(pila[pila.length-1] == "F'"){
+							pila.pop();
+						}
 					}	
 				}
 		else if(misDatitos[0] == 2){
@@ -1048,7 +1057,12 @@ function analizadorSintactico(misDatitos, miTablita){
 							//break;
 						}
 					}else{
-						pila.pop();	
+						if(pila[pila.length-1] == "A'"){
+							pila.pop();		
+						}else if(pila[pila.length-1] == "M'"){
+							pila.pop();
+						}
+						
 					}	
 				}
 		else if(misDatitos[0] == 3){
@@ -1066,7 +1080,13 @@ function analizadorSintactico(misDatitos, miTablita){
 							misDatitos.shift();	
 						}
 					}else{
-						pila.pop();
+						if(pila[pila.length-1] == "M'"){
+							pila.pop();		
+						}else if(pila[pila.length-1] == "F'"){
+							pila.pop();
+						}else if(pila[pila.length-1] == "T'"){
+							pila.pop();
+						}
 					}	
 				}
 		else if(misDatitos[0] == 4){
@@ -1085,7 +1105,15 @@ function analizadorSintactico(misDatitos, miTablita){
 							//break;
 						}
 					}else{
-						pila.pop();
+						if(pila[pila.length-1] == "A'"){
+							pila.pop();		
+						}else if(pila[pila.length-1] == "M'"){
+							pila.pop();
+						}else if(pila[pila.length-1] == "F'"){
+							pila.pop();
+						}else if(pila[pila.length-1] == "T'"){
+							pila.pop();
+						}
 					}	
 				}
 		else if(misDatitos[0] == 9){
@@ -1142,11 +1170,16 @@ function analizadorSintactico(misDatitos, miTablita){
 		else if(misDatitos[0] == 100){
 			misDatitos.shift();
 		}
-		
+		var cont = cont + 1;
+		if(cont > 100){
+			break;
+			//resultado.push("La frase es inválida :D");
+			
+		}
 	}
 	if(pila.length == 0){ 
 			resultado.push("La frase es válida :D");
-	}else if(misDatitos.length > 0){		
+	}/*else if(misDatitos.length > 0)*/else if(cont > 100){		
 			resultado.push("Es inválido por todavía contiene algo la pila: " + pila);
 			}
 		}else{
