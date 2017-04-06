@@ -38,7 +38,7 @@ var identificadoresMayusculas = [
 		  A    |    |    |    |    |    |MA'  |MA' |    |
 		  A'   |Ɛ   |Ɛ   |Ɛ   |/MA'|    |     |    |Ɛ   |Ɛ
 		  M    |    |    |    |    |    |KM'  |KM' |    |
-		  M'   |Ɛ   |Ɛ   |Ɛ   |Ɛ   |*KM'|     |    |    |Ɛ
+		  M'   |Ɛ   |Ɛ   |Ɛ   |Ɛ   |*KM'|     |    |Ɛ   |Ɛ
 		  K    |    |    |    |    |    |id   |(E) |    |
 
 */
@@ -52,8 +52,8 @@ var tablaSintactica=[
 	["",    "",    "",    "",    "",    "MA'", "MA'", "",   "" ],
 	["Ɛ",   "Ɛ",   "Ɛ",   "/MA'","",    "",    "",    "Ɛ",  "Ɛ"],
 	["",    "",    "",    "",    "",    "KM'", "KM'", "",   "" ],
-	["Ɛ",   "Ɛ",   "Ɛ",   "Ɛ",   "*KM'","",    "",    "",   "Ɛ"],
-	["",    "",    "",    "",    "",    "id", "(E)", "",   "" ]
+	["Ɛ",   "Ɛ",   "Ɛ",   "Ɛ",   "*KM'","",    "",    "Ɛ",  "Ɛ"],
+	["",    "",    "",    "",    "",    "id", "(E)",  "",   "" ]
 ];
 
 
@@ -68,7 +68,7 @@ document.getElementById('enviar').addEventListener("click",function(){
 			var sintactico = analizadorSintactico(analisisNumeros,tablaSintactica);
 			console.log("\n"+sintactico+"\n");
 			var otrosDatos = otros(datos,componentesLexicos);
-			console.log("\n"+resultados+"\n");
+			console.log("Estos son los componentes lexicos válidos: \n"+resultados+"\n");
 			div1.style.border = "3px";
 			div1.style.borderStyle = "dashed";
 			div1.style.padding = "10px";
@@ -77,7 +77,7 @@ document.getElementById('enviar').addEventListener("click",function(){
 			div1.style.color = "white";
 			if(otrosDatos.length !== 0 && componentesLexicos.test(datos) === true){
 				//si existe algún valor en la pila de datos, realiza la operación
-					console.log("\n"+otrosDatos+"\n");
+					console.log("Estos son los otros: \n"+otrosDatos+"\n");
 			   		div2.style.border = "3px";
 					div2.style.borderStyle = "dashed";
 					div2.style.padding = "10px";
@@ -1172,18 +1172,16 @@ function analizadorSintactico(misDatitos, miTablita){
 		}
 		var cont = cont + 1;
 		if(cont > 100){
-			break;
-			//resultado.push("La frase es inválida :D");
-			
+			break;			
 		}
 	}
-	if(pila.length == 0){ 
+	if(pila.length == 0 && misDatitos.length ==0){ 
 			resultado.push("La frase es válida :D");
 	}/*else if(misDatitos.length > 0)*/else if(cont > 100){		
-			resultado.push("Es inválido por todavía contiene algo la pila: " + pila);
+			resultado.push("Es inválida la frase. Prueba con otra :D");
 			}
 		}else{
-			resultado.push("La frase introducida es inválida porque no empieza con id o paréntesis o no termina con punto y coma. Por favor de introducir una frase válida ");
+			resultado.push("La frase introducida es inválida porque no empieza con id o paréntesis o no termina con punto y coma. Por favor de introducir otra frase. ");
 		}
 	return resultado;
 }
