@@ -5,6 +5,7 @@ var div3 = document.getElementById("div3");
 var componentesLexicos =
  /([-]|[\+]|[\/]|[\*]|[a-z]|[A-Z]|[\[]|[\]]|[\(]|[\)]|[\;]|[ ]|[=])/g;
 
+
 var operadoresAritmeticos = [
 		"-","+","/","*"
 ];
@@ -377,6 +378,19 @@ function mostrarResultado(texto, componentesLexicos){
 
 //método que analiza las coincidencias de la expresión regular y los guarda en una pila
 function analizador(texto, componentesLexicos){
+			/*
+			- : 1
+			+ : 2
+			/ : 3
+			* : 4
+			( : 5
+			) : 6
+			7 : $
+			8 : id
+			9 : =
+			100: blanco
+			*/
+
 	var datos = texto.match(componentesLexicos);
     var data = [];
 	if(componentesLexicos.test(texto) === true){
@@ -644,6 +658,7 @@ function analizadorSintactico(misDatitos, miTablita){
 	//(A*C)+(A/  D)+C  /c+(a-  q)*r  +t=D;
 	//A/A+a-v+(a+c)-w+a=w;
 	//(k+l)  -( l/ t)  +(e*y   )/  (d-e)*t;
+	
 	var pila = ["$","E"];
 	var resultado = [];
 	var cont = 0;
