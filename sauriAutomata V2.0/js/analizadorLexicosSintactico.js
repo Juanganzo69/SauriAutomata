@@ -4,8 +4,6 @@ var div2 = document.getElementById("div2");
 var componentesLexicos =
  /([-]|[\+]|[\/]|[\*]|[a-z]|[A-Z]|[\[]|[\]]|[\(]|[\)]|[\;]|[ ]|[=])/g;
 
-
-
 var operadoresAritmeticos = [
 		"-","+","/","*"
 ];
@@ -59,10 +57,6 @@ var tablaSintactica=[
 ];
 
 
-
-
-
-
 //Evento cuando se clickea el botón analizar
 document.getElementById('enviar').addEventListener("click",function(){
     var datos = document.getElementById('datos').value;
@@ -70,12 +64,9 @@ document.getElementById('enviar').addEventListener("click",function(){
 			//si existe algún valor de entrada realiza las operaciones
 			var resultados = mostrarResultado(datos,componentesLexicos);
 			var analisisNumeros = analizador(datos,componentesLexicos);
-			//var sinEspacios = quitarEspacios(analisisNumeros);
 			console.log(analisisNumeros);
-			//console.log(sinEspacios);
 			var sintactico = analizadorSintactico(analisisNumeros,tablaSintactica);
-			console.log(sintactico);
-			//analizadorSintactico(analisisNumeros,tablaSintactica);
+			console.log("\n"+sintactico+"\n");
 			var otrosDatos = otros(datos,componentesLexicos);
 			console.log("\n"+resultados+"\n");
 			div1.style.border = "3px";
@@ -372,10 +363,7 @@ function mostrarResultado(texto, componentesLexicos){
                    }
     	}
 		return data;
-	}
-    //var myString = JSON.stringify(data, null, 2);
-    //return myString;
-    
+	}    
 };
 
 //método que analiza las coincidencias de la expresión regular y los guarda en una pila
@@ -631,8 +619,6 @@ function analizador(texto, componentesLexicos){
     	}
 		return data;
 	}
-    //var myString = JSON.stringify(datos, null, 2);
-    //return myString;
     return datos;
 };
 
@@ -643,26 +629,14 @@ function otros(texto, componentesLexicos){
 	return dataotros;
 };
 
-/*function quitarEspacios(arregloDatosSalida){
-	var contBlanco = 0;
-	for(var i = 0; i <= arregloDatosSalida.length - 1; i++){
-		if(arregloDatosSalida[i] == 100){
-			contBlanco = contBlanco + 1;
-			var x = arregloDatosSalida.indexOf(100);
-			arregloDatosSalida.splice(x,contBlanco);
-		}	
-	}
-	return arregloDatosSalida;
-
-}*/
-
 
 function analizadorSintactico(misDatitos, miTablita){
-	var pila = [";","E"];
+	//B*a*(a+a)-Z*X+(b+c+v)=y/(c/v);
+	//(A*C)+(A/D  )-  (a+x) /(w-e)+C/a = D;
+	var pila = ["$","E"];
 	var resultado = [];
-	if(misDatitos[0] == 8 || misDatitos[0] == 5){
+	if((misDatitos[0] == 8 || misDatitos[0] == 5) && misDatitos[misDatitos.length-1] == 7){
 	while(pila.length !== 0){
-		//a+(a-b);
 		if(misDatitos[0] == 8){
 			if(pila[pila.length-1] == "E"){
 			pila.pop();
@@ -772,7 +746,7 @@ function analizadorSintactico(misDatitos, miTablita){
 					pila.pop();
 					//KM'
 					var K	  = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 1)];
-					var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("K"), 2)];
+					var Mprima = [miTablita[8][5].substr(miTablita[8][5].indexOf("M"), 2)];
 					pila.push(Mprima[0]);
 					pila.push(K[0]);
 							if(pila[pila.length-1] == "K"){
@@ -997,7 +971,7 @@ function analizadorSintactico(misDatitos, miTablita){
 								pila.push(charParentesis[2]);
 								pila.push(charParentesis[1]);
 								pila.push(charParentesis[0]);
-								if(pila[pila.length-1] == "id"){
+								if(pila[pila.length-1] == "("){
 									pila.pop();
 									misDatitos.shift();
 									//break;
@@ -1020,7 +994,7 @@ function analizadorSintactico(misDatitos, miTablita){
 					pila.push(charParentesis[2]);
 					pila.push(charParentesis[1]);
 					pila.push(charParentesis[0]);
-						if(pila[pila.length-1] == "id"){
+						if(pila[pila.length-1] == "("){
 							pila.pop();
 							misDatitos.shift();
 						}
@@ -1034,12 +1008,12 @@ function analizadorSintactico(misDatitos, miTablita){
 					pila.push(charParentesis[2]);
 					pila.push(charParentesis[1]);
 					pila.push(charParentesis[0]);
-						if(pila[pila.length-1] == "id"){
+						if(pila[pila.length-1] == "("){
 							pila.pop();
 							misDatitos.shift();
 						}
 					}
-	}
+		}
 		else if(misDatitos[0] == 1){
 					if(pila[pila.length-1] == "T'"){
 						pila.pop();
@@ -1133,15 +1107,11 @@ function analizadorSintactico(misDatitos, miTablita){
 			}	
 		}
 		else if(misDatitos[0] == 7){
-			if(pila[pila.length-1] == ";"){
+			if(pila[pila.length-1] == "$"){
 					pila.pop();
 					misDatitos.shift();
-					//
-					//break;
 				}else if(pila[pila.length-1] == "E'"){
-				//Fin de cadena :D $ = ;
 					pila.pop();
-				//break;
 				}else if(pila[pila.length-1] == "T'"){
 					pila.pop();
 				}else if(pila[pila.length-1] == "F'"){
@@ -1150,9 +1120,7 @@ function analizadorSintactico(misDatitos, miTablita){
 					pila.pop();
 				}else if(pila[pila.length-1] == "M'"){
 					pila.pop();
-				}
-					
-					
+				}	
 			}
 		else if(misDatitos[0] == 6){
 			if(pila[pila.length-1] == ")"){
@@ -1175,17 +1143,16 @@ function analizadorSintactico(misDatitos, miTablita){
 			misDatitos.shift();
 		}
 		
-}
-			if(pila.length == 0){ 
-				resultado.push("Es valido" + pila);
-			}else if(pila.length > 2){		
-				resultado.push("Es inválido" + pila);
-				
-			}
-	}else{
-		resultado.push("La frase introducida es inválida porque no empieza con id o paréntesis :( ");
 	}
-return resultado;
+	if(pila.length == 0){ 
+			resultado.push("La frase es válida :D");
+	}else if(misDatitos.length > 0){		
+			resultado.push("Es inválido por todavía contiene algo la pila: " + pila);
+			}
+		}else{
+			resultado.push("La frase introducida es inválida porque no empieza con id o paréntesis o no termina con punto y coma. Por favor de introducir una frase válida ");
+		}
+	return resultado;
 }
 		
 
